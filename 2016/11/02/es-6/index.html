@@ -6,17 +6,38 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>My Blog</title>
+  <title>es-6 | My Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="My Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="JavaScript ES6JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你马上就能用的新功能。
+核心 ES6 功能你可以在浏览器的控制台中测试所有下面的代码片段。
+
+不要笃信我的话，而是要亲自去测试每一个 ES5 和 ES6 示例。让我们开始动手吧 💪
+变量的块级作用域使用 ES6，声明变量我们可以用 var ，也可以用 let 或 const。
+var 有什么不足？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es-6">
+<meta property="og:url" content="http://yoursite.com/2016/11/02/es-6/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="我的个人博客">
+<meta property="og:description" content="JavaScript ES6JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你马上就能用的新功能。
+核心 ES6 功能你可以在浏览器的控制台中测试所有下面的代码片段。
+
+不要笃信我的话，而是要亲自去测试每一个 ES5 和 ES6 示例。让我们开始动手吧 💪
+变量的块级作用域使用 ES6，声明变量我们可以用 var ，也可以用 let 或 const。
+var 有什么不足？">
+<meta property="og:image" content="http://adrianmejia.com/images/javascript-es6-classes-on-browser-console.png">
+<meta property="og:image" content="http://adrianmejia.com/images/javascript-es6-const-variables-example.png">
+<meta property="og:image" content="http://adrianmejia.com/images/superman_shield.svg">
+<meta property="og:image" content="http://adrianmejia.com/images/javascript-math-apply-arrays.png">
+<meta property="og:updated_time" content="2016-11-02T12:20:59.180Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My Blog">
-<meta name="twitter:description" content="我的个人博客">
+<meta name="twitter:title" content="es-6">
+<meta name="twitter:description" content="JavaScript ES6JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你马上就能用的新功能。
+核心 ES6 功能你可以在浏览器的控制台中测试所有下面的代码片段。
+
+不要笃信我的话，而是要亲自去测试每一个 ES5 和 ES6 示例。让我们开始动手吧 💪
+变量的块级作用域使用 ES6，声明变量我们可以用 var ，也可以用 let 或 const。
+var 有什么不足？">
+<meta name="twitter:image" content="http://adrianmejia.com/images/javascript-es6-classes-on-browser-console.png">
   
     <link rel="alternative" href="/#" title="My Blog" type="application/atom+xml">
   
@@ -133,9 +154,7 @@
 </nav>
 
       <div class="body-wrap">
-        
-  
-    <article id="post-es-6" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-es-6" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -144,8 +163,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/02/es-6/">es-6</a>
+    <h1 class="article-title" itemprop="name">
+      es-6
     </h1>
   
 
@@ -341,185 +360,44 @@
   </div>
 </article>
 
-
-
-
-
-
-
-
-
-
   
-    <article id="post-git" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/01/git/">git</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="git的一些简单用法"><a href="#git的一些简单用法" class="headerlink" title="git的一些简单用法"></a>git的一些简单用法</h1><h2 id="全局初始配置账号和邮箱"><a href="#全局初始配置账号和邮箱" class="headerlink" title="全局初始配置账号和邮箱"></a>全局初始配置账号和邮箱</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git config --global user.name xxx</div><div class="line">git config --global user.email xxx@xx.xx </div><div class="line">git config --list 查看所有配置</div></pre></td></tr></table></figure>
-<h2 id="cd-命令"><a href="#cd-命令" class="headerlink" title="cd 命令"></a>cd 命令</h2><p>mkdir 创建目录</p>
-<h2 id="初始化git"><a href="#初始化git" class="headerlink" title="初始化git"></a>初始化git</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
-<h2 id="初始化文件"><a href="#初始化文件" class="headerlink" title="初始化文件"></a>初始化文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo hello &gt; 1.txt</div></pre></td></tr></table></figure>
-<ul>
-<li>一个&gt;代表清空并写入 两个&gt;&gt;代表追加<h2 id="删除文件rm"><a href="#删除文件rm" class="headerlink" title="删除文件rm"></a>删除文件rm</h2><h2 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="将文件加入到暂存区中"><a href="#将文件加入到暂存区中" class="headerlink" title="将文件加入到暂存区中"></a>将文件加入到暂存区中</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add file</div><div class="line">git add . </div><div class="line">git add -A</div></pre></td></tr></table></figure>
-<h2 id="提交commit"><a href="#提交commit" class="headerlink" title="提交commit"></a>提交commit</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m &quot;对于修改内容的描述&quot;</div></pre></td></tr></table></figure>
-<h2 id="vi控制台"><a href="#vi控制台" class="headerlink" title="vi控制台"></a>vi控制台</h2><p>如果进入了编辑模式可以通过i键进入插入模式</p>
-<ul>
-<li>i表示编辑</li>
-<li>退出esc+ :wq<h2 id="查看版本库信息"><a href="#查看版本库信息" class="headerlink" title="查看版本库信息"></a>查看版本库信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git log --oneline</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="比较代码差异"><a href="#比较代码差异" class="headerlink" title="比较代码差异"></a>比较代码差异</h2><ul>
-<li><p>比较工作区和暂存区</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff</div></pre></td></tr></table></figure>
-</li>
-<li><p>比较工作区和版本库的区别</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff master</div></pre></td></tr></table></figure>
-</li>
-<li><p>比较暂存区和版本库的区别</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff --cached</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="从暂存区删除本次的add"><a href="#从暂存区删除本次的add" class="headerlink" title="从暂存区删除本次的add"></a>从暂存区删除本次的add</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset HEAD file</div></pre></td></tr></table></figure>
-<blockquote>
-<p>取消本次的add</p>
-<h2 id="从缓存区-从历史区将代码覆盖掉工作区"><a href="#从缓存区-从历史区将代码覆盖掉工作区" class="headerlink" title="从缓存区 从历史区将代码覆盖掉工作区"></a>从缓存区 从历史区将代码覆盖掉工作区</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout file</div></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="回到过去"><a href="#回到过去" class="headerlink" title="回到过去"></a>回到过去</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset --hard commit_id/^^^^^/HEAD~4</div></pre></td></tr></table></figure>
-<h2 id="查看未来的版本"><a href="#查看未来的版本" class="headerlink" title="查看未来的版本"></a>查看未来的版本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reflog</div></pre></td></tr></table></figure>
-<h2 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch</div></pre></td></tr></table></figure>
-<h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch xx</div></pre></td></tr></table></figure>
-<h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout xx</div></pre></td></tr></table></figure>
-<h2 id="创建并切换"><a href="#创建并切换" class="headerlink" title="创建并切换"></a>创建并切换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -b xx</div></pre></td></tr></table></figure>
-<h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -d xx</div></pre></td></tr></table></figure>
-<h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git merge xx</div></pre></td></tr></table></figure>
-<h2 id="在gitHub上部署静态页"><a href="#在gitHub上部署静态页" class="headerlink" title="在gitHub上部署静态页"></a>在gitHub上部署静态页</h2><p>需要将特定的内容推送到gitHub上的gh-pages分支上</p>
-<ul>
-<li><p>创建一个gh-pages的分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -b gh-pages</div></pre></td></tr></table></figure>
-</li>
-<li><p>将代码commit 到这个分支上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git add .</div><div class="line">git commit -m &quot;&quot;</div></pre></td></tr></table></figure>
-</li>
-<li><p>连接远程仓库和本地仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin 地址</div></pre></td></tr></table></figure>
-</li>
-<li><p>将代码推送到远程仓库上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin gh-pages</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="合并分支产生冲突"><a href="#合并分支产生冲突" class="headerlink" title="合并分支产生冲突"></a>合并分支产生冲突</h2><ul>
-<li>在主干的某个版本上进行分支开发，在分支上开发1.txt这个文件(drag)，在主干上也开发1.txt(limit),此时回到主干上合并时，会产生冲突，需要我们手动解决<h2 id="从工作区中提交到历史区"><a href="#从工作区中提交到历史区" class="headerlink" title="从工作区中提交到历史区"></a>从工作区中提交到历史区</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -a -m &quot;&quot;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>第一次不能这样写</p>
-<h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><p>去掉 &gt;&gt;&gt; ===&lt;&lt;&lt;保留需要的内容再提交</p>
-<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>git rebase 变基<br>git cherry-pick 精选</p>
-<h2 id="显示结构"><a href="#显示结构" class="headerlink" title="显示结构"></a>显示结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git log --graph --oneline --decorate</div></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="创建忽略文件"><a href="#创建忽略文件" class="headerlink" title="创建忽略文件"></a>创建忽略文件</h2><p>将项目提交到gitHub上，需要在gitHub上创建一个空的仓库</p>
-<h2 id="添加远程仓库的连接"><a href="#添加远程仓库的连接" class="headerlink" title="添加远程仓库的连接"></a>添加远程仓库的连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add 地址名字 地址</div></pre></td></tr></table></figure>
-<h2 id="查看配置的所有配置的地址"><a href="#查看配置的所有配置的地址" class="headerlink" title="查看配置的所有配置的地址"></a>查看配置的所有配置的地址</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote -v</div></pre></td></tr></table></figure>
-<h2 id="删除地址"><a href="#删除地址" class="headerlink" title="删除地址"></a>删除地址</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote rm 地址名字</div></pre></td></tr></table></figure>
-<h2 id="upstream"><a href="#upstream" class="headerlink" title="upstream"></a>upstream</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-u 下次提交或者拉取代码可以直接git push 或者git pull</div></pre></td></tr></table></figure>
-<h2 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h2><p>把别人的项目原封不动的拷贝一份放置到自己的仓库下，只能fork一次</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/01/git/" class="archive-article-date">
-  	<time datetime="2016-11-01T08:28:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-01</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/31/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/31/hello-world/" class="archive-article-date">
-  	<time datetime="2016-10-31T15:50:08.659Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-31</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
+<nav id="article-nav">
   
   
+    <a href="/2016/11/01/git/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">git</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
 
 
       </div>
@@ -541,8 +419,8 @@
 		fancybox: true,
 		mathjax: false,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
