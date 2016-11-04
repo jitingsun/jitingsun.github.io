@@ -35,7 +35,7 @@ var 有什么不足？">
 <meta property="og:image" content="http://adrianmejia.com/images/javascript-es6-const-variables-example.png">
 <meta property="og:image" content="http://adrianmejia.com/images/superman_shield.svg">
 <meta property="og:image" content="http://adrianmejia.com/images/javascript-math-apply-arrays.png">
-<meta property="og:updated_time" content="2016-11-03T13:24:28.535Z">
+<meta property="og:updated_time" content="2016-11-04T09:00:03.999Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es-6">
 <meta name="twitter:description" content="JavaScript ES6JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你马上就能用的新功能。
@@ -134,7 +134,7 @@ var 有什么不足？">
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-ES6"><span class="toc-text">JavaScript ES6</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#核心-ES6-功能"><span class="toc-text">核心 ES6 功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#变量的块级作用域"><span class="toc-text">变量的块级作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模板字面量"><span class="toc-text">模板字面量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多行字符串"><span class="toc-text">多行字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解构赋值"><span class="toc-text">解构赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类和对象"><span class="toc-text">类和对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原生-Promises"><span class="toc-text">原生 Promises</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#箭头函数"><span class="toc-text">箭头函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#For…of"><span class="toc-text">For…of</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认参数"><span class="toc-text">默认参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#剩余参数"><span class="toc-text">剩余参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#展开运算符"><span class="toc-text">展开运算符</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-ES6"><span class="toc-text">JavaScript ES6</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#核心-ES6-功能"><span class="toc-text">核心 ES6 功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量的块级作用域"><span class="toc-text">变量的块级作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模板字面量"><span class="toc-text">模板字面量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多行字符串"><span class="toc-text">多行字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解构赋值"><span class="toc-text">解构赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类和对象"><span class="toc-text">类和对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原生-Promises"><span class="toc-text">原生 Promises</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#箭头函数"><span class="toc-text">箭头函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#For…of"><span class="toc-text">For…of</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认参数"><span class="toc-text">默认参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#剩余参数"><span class="toc-text">剩余参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#展开运算符"><span class="toc-text">展开运算符</span></a></li></ol></li></ol>
   </div>
 
 
@@ -168,7 +168,7 @@ var 有什么不足？">
   <div class="article-content">
     
       <h1 id="JavaScript-ES6"><a href="#JavaScript-ES6" class="headerlink" title="JavaScript ES6"></a>JavaScript ES6</h1><p>JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你马上就能用的新功能。</p>
-<h1 id="核心-ES6-功能"><a href="#核心-ES6-功能" class="headerlink" title="核心 ES6 功能"></a>核心 ES6 功能</h1><p>你可以在浏览器的控制台中测试所有下面的代码片段。</p>
+<h2 id="核心-ES6-功能"><a href="#核心-ES6-功能" class="headerlink" title="核心 ES6 功能"></a>核心 ES6 功能</h2><p>你可以在浏览器的控制台中测试所有下面的代码片段。</p>
 <p><img src="http://adrianmejia.com/images/javascript-es6-classes-on-browser-console.png" alt="" title="Testing Javascript ES6 classes on browser console"></p>
 <p>不要笃信我的话，而是要亲自去测试每一个 ES5 和 ES6 示例。让我们开始动手吧 💪</p>
 <h2 id="变量的块级作用域"><a href="#变量的块级作用域" class="headerlink" title="变量的块级作用域"></a>变量的块级作用域</h2><p>使用 ES6，声明变量我们可以用 <code>var</code> ，也可以用 <code>let</code> 或 <code>const</code>。</p>
