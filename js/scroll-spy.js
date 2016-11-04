@@ -82,19 +82,19 @@ function getItems(ary) {
 function spy(items, className) {
   var find = 0;
 
-  for (var i = 0, l = items.length-1; i < l; i++) {
+  for (var i = 0, l = items.length; i < l; i++) {
     if ($body.scrollTop < items[i].top - items[i].height / 3) {
       find = i;
       break;
     }
   }
 
-  for (var j = 0, _l = items.length-1; j < _l; j++) {
+  for (var j = 0, _l = items.length; j < _l; j++) {
     util.removeClass(items[j].elem, className);
   }
 
   if (find > 0) {
-    util.addClass(items[find - 1].elem, className);
+    util.addClass(items[find].elem, className);
   }
 }
 
