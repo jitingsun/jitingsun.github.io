@@ -1,0 +1,10 @@
+html.page-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient( #000, transparent), linear-gradient( 90deg, skyblue, transparent), linear-gradient( -90deg, coral, transparent);*/
+  background-blend-mode: screen;*/
+  background: linear-gradient(to left, grey, #49a09d);
+}
