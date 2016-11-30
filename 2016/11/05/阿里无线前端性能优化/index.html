@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>阿里无线前端性能优化(转) | My Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="天逸风,前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="阿里无线前端性能优化指南 (Pt.1 加载优化)
+来自https://github.com/amfe/article/issues/1前言
+
+阿里无线前端团队在过去一年对所负责业务进行了全面的性能优化。以下是我们根据实际经验总结的优化指南，希望对大家有所帮助。
+第一部分仅包括数据加载期优化。
+图片控制对于网页特别是电商类页面来说，图片通常会占据了大量的视觉空间,是页面中最为重要的展现内容，并且占据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里无线前端性能优化(转)">
+<meta property="og:url" content="http://yoursite.com/2016/11/05/阿里无线前端性能优化/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="阿里无线前端性能优化指南 (Pt.1 加载优化)
+来自https://github.com/amfe/article/issues/1前言
+
+阿里无线前端团队在过去一年对所负责业务进行了全面的性能优化。以下是我们根据实际经验总结的优化指南，希望对大家有所帮助。
+第一部分仅包括数据加载期优化。
+图片控制对于网页特别是电商类页面来说，图片通常会占据了大量的视觉空间,是页面中最为重要的展现内容，并且占据">
+<meta property="og:updated_time" content="2016-11-30T11:30:12.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阿里无线前端性能优化(转)">
+<meta name="twitter:description" content="阿里无线前端性能优化指南 (Pt.1 加载优化)
+来自https://github.com/amfe/article/issues/1前言
+
+阿里无线前端团队在过去一年对所负责业务进行了全面的性能优化。以下是我们根据实际经验总结的优化指南，希望对大家有所帮助。
+第一部分仅包括数据加载期优化。
+图片控制对于网页特别是电商类页面来说，图片通常会占据了大量的视觉空间,是页面中最为重要的展现内容，并且占据">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#阿里无线前端性能优化指南-Pt-1-加载优化"><span class="toc-text">阿里无线前端性能优化指南 (Pt.1 加载优化)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图片控制"><span class="toc-text">图片控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启用WebP"><span class="toc-text">启用WebP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化高分屏和弱网适配"><span class="toc-text">优化高分屏和弱网适配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单张图片大小控制"><span class="toc-text">单张图片大小控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合理使用CSS-SVG-ICON-Font替代图片"><span class="toc-text">合理使用CSS/SVG/ICON Font替代图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对图片进行按需加载"><span class="toc-text">对图片进行按需加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络请求"><span class="toc-text">网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域名收敛"><span class="toc-text">域名收敛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#减少请求数"><span class="toc-text">减少请求数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文本数据的优化与压缩"><span class="toc-text">文本数据的优化与压缩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据接口优化与监控"><span class="toc-text">数据接口优化与监控</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-阿里无线前端性能优化" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">阿里无线前端性能优化(转)</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.11.05</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>天逸风</span>
+        </span>
+      
+
+      
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="阿里无线前端性能优化指南-Pt-1-加载优化"><a href="#阿里无线前端性能优化指南-Pt-1-加载优化" class="headerlink" title="阿里无线前端性能优化指南 (Pt.1 加载优化)"></a>阿里无线前端性能优化指南 (Pt.1 加载优化)</h1><ul>
+<li>来自<a href="https://github.com/amfe/article/issues/1" target="_blank" rel="external">https://github.com/amfe/article/issues/1</a><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2></li>
+</ul>
+<p>阿里无线前端团队在过去一年对所负责业务进行了全面的性能优化。以下是我们根据实际经验总结的优化指南，希望对大家有所帮助。</p>
+<p>第一部分仅包括数据加载期优化。</p>
+<h2 id="图片控制"><a href="#图片控制" class="headerlink" title="图片控制"></a>图片控制</h2><p>对于网页特别是电商类页面来说，图片通常会占据了大量的视觉空间,是页面中最为重要的展现内容，并且占据网页传输字节的大部分。因此，对图片的优化是我们性能优化的重点.</p>
+<h2 id="启用WebP"><a href="#启用WebP" class="headerlink" title="启用WebP"></a>启用WebP</h2><p>WebP是一种支持有损压缩和无损压缩的图片文件格式，派生自视频编码格式 VP8。根据 Google 官方的数据，无损压缩后的 WebP 比 PNG 文件少了 26％ 的文件大小，有损压缩在具有同等SSIM索引的情况下WebP 比 JPEG 文件少25-34%的文件大小。WebP支持无损透明度（也叫做alpha通道），支持动画格式Animated WebP 。</p>
+<p>虽然目前仅Android系统原生支持WebP格式， 但由于其对页面性能优化的巨大意义， 我们会在页面加载时进行环境探测, 如页面渲染环境支持WebP我们会替换页面中的图片链接为WebP格式的版本。 如果页面专门用于可控的客户端内(我们能在客户端中放置专门的WebP decoder)，就算是iOS环境我们也会启用WebP.</p>
+<h2 id="优化高分屏和弱网适配"><a href="#优化高分屏和弱网适配" class="headerlink" title="优化高分屏和弱网适配"></a>优化高分屏和弱网适配</h2><p>从苹果的Retina开始，手机厂商开始越来越多的使用高像素密度显示屏。在浏览器里我们的一个CSS像素往往能对应两个或更多个设备像素，在这种环境下为了追求最好的显示效果,我们会采用数倍于浏览器CSS像素标识的图片尺寸. 这里需要注意的是，如果你采用了2x (两倍CSS像素分辨率) 的图片,由于水平和垂直像素都进行了加倍，最终图片体积会增加4倍(内存占用也会增加4倍). 同理,如果你采用了3x的图片，最终增加的传输体积会增至9倍.</p>
+<p>用户喜欢清晰绚丽的图片， 但用户更加痛恨打不开的页面. 在我们的实践中,我们最多使用2x(两倍CSS像素分辨率)的图片。 如果页面专门用于可控的客户端内，我们会根据从客户端获取的网络情况替换页面所使用的图片资源. 在最糟糕的网络环境(2G移动网络)，我们甚至会采用按30%质量进行压缩的图片以替换原始图片链接。</p>
+<h2 id="单张图片大小控制"><a href="#单张图片大小控制" class="headerlink" title="单张图片大小控制"></a>单张图片大小控制</h2><p>有时，如果不设限无论你如何优化糟糕的情况总会出现。在我们的实践中, 针对图片我们设置了单张图片大小不超过50Kb的限制。在每次发布时,我们会对页面图片进行检查, 如果图片超过这个限制仍需要发布，就得走特别的流程了.</p>
+<h2 id="合理使用CSS-SVG-ICON-Font替代图片"><a href="#合理使用CSS-SVG-ICON-Font替代图片" class="headerlink" title="合理使用CSS/SVG/ICON Font替代图片"></a>合理使用CSS/SVG/ICON Font替代图片</h2><p>传统桌面Web中，针对页面内的图标，我们往往采用Sprite（雪碧图）技术把多个图标合并到一张大图片中，针对不同的图标显示大图中不同的部分。但在移动互联网环境下, 由于设备内存有限，每使用Sprite技术展示一个图标，都需要浏览器把整个大图解码到内存中一次，考虑到前文提到的多倍CSS像素分辨率情况, 占用的内存和解码时间往往是可观的。不合理的使用Sprite技术会造成移动页面性能不升反降。</p>
+<p>更合适的选择是CSS3,SVG和ICON Font技术。如果你的图标能使用这些技术绘制，在任何分辨率和缩放设置都可以提供清晰的效果并减小传输和内存的开销.</p>
+<h2 id="对图片进行按需加载"><a href="#对图片进行按需加载" class="headerlink" title="对图片进行按需加载"></a>对图片进行按需加载</h2><p>电商类型网站多用多图列表页面展现商品内容, 我们会在非WIFI网络环境时对图片资源进行按需加载，仅仅当图片资源出现在首屏或随着用户滑动屏幕进入可见区域时，我们才进行加载. 进行这项优化的关键在于对全局的图片呈现进行一层抽象,以便统一控制.</p>
+<h2 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h2><p>今天我们谈论的无线页面，很多时候已不再是传统的”页面”，而是一个个”单页应用”。随着应用复杂度的逐渐增加，所需加载的除图片等静态数据外，动态数据也会越来越多。如果想追求高质量的单页应用,对这些请求的优化势在必行.</p>
+<h2 id="域名收敛"><a href="#域名收敛" class="headerlink" title="域名收敛"></a>域名收敛</h2><p>如果你页面中引入的各种资源来自不同的域名，注意每增加一个域名,都会增加一次域名解析开销。 在复杂的国内移动互联网网络环境下，不同域名的解析速度可能会相差数十倍。 所以你需要有意识的收敛页面资源所需解析的域名数, 特别是会阻塞页面渲染的CSS,JS,Font资源。 很多性能糟糕页面究其原因或许会是引入的资源域名解析速度很慢或完全不能正确解析。在我们的实践中, 一个页面所产生的域名解析数不能超过5个。</p>
+<h2 id="减少请求数"><a href="#减少请求数" class="headerlink" title="减少请求数"></a>减少请求数</h2><p>在优化了需要解析的域名数后，你需要关注页面资源请求数. 如果是长期维护的产品型页面 ，页面中引入的静态资源除最通用的基础库外需要按依赖顺序进行合并压缩. 一般是JS和CSS请求各一。 针对电商厂商多见的营销活动页面，我们甚至开发了工具把全部的CSS和JS资源内联入页面，从而实现除图片外的其余资源One Request就能获得.</p>
+<p>另外，资源请求重定向也应该尽量避免,少一次重定向，少一个请求数.</p>
+<h2 id="文本数据的优化与压缩"><a href="#文本数据的优化与压缩" class="headerlink" title="文本数据的优化与压缩"></a>文本数据的优化与压缩</h2><p>文本数据(HTML,CSS,JavaScript)的优化与压缩分为三个阶段，分别是发布准备(去除注释,合并CSS声明,去除不会被执行的JS代码块), 编译期压缩(合并文件，去除空格，混淆) 和 传输阶段压缩( GZip ) . 这项优化的关键在于梳理流程确保压缩的自动化和服务器GZip指令被正确配置。</p>
+<h2 id="数据接口优化与监控"><a href="#数据接口优化与监控" class="headerlink" title="数据接口优化与监控"></a>数据接口优化与监控</h2><p>随着近两年Web前后端分离思潮的流行与前端模板技术的发展 , 我们越来越倾向在页面加载完成后再通过接口获取JSON数据并在前端进行页面渲染。这种方式带来了页面第一次加载速度的提升，但常常把原有的性能问题隐藏了起来。 需要花功夫优化的数据获取并最终呈现时间往往被隐藏在空页面快速呈现的表象之下。更严重的情况发生在需要从多个不同接口获取数据，并且这些接口调用还存在互相依赖的情况下，一旦出现这样的情况，页面性能往往是不升反降的.</p>
+<p>在我们的实践中, 我们要求数据在后端组装完成后再交由前端渲染，一屏中完整渲染所需数据不能来自多过一个接口。 所有数据源统一收敛到单一的接口服务层，以便进行统计和监控。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
