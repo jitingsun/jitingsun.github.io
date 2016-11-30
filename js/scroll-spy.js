@@ -94,7 +94,7 @@ function spy(items, className) {
   }
 
   if (find > 0) {
-    util.addClass(items[find].elem, className);
+    util.addClass(items[find - 1].elem, className);
   }
 }
 
