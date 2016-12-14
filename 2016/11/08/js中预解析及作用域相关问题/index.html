@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>js中预解析及作用域相关问题 | My Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="baidu-site-verification" content="tTpK63Z0Nt" />
+  
+    <meta name="keywords" content="javascript," />
+  
+
+  <meta name="description" content="1.JS预解析当浏览器加载html页面的时候，会先提供一个供全局JS代码执行的环境，称为全局作用域(global/window)预解析仅发生在当前作用域中(刚开始时仅对window下的进行预解析，只有函数执行时才对函数的进行预解析)函数名存储的是一个内存地址，代表了函数本身，函数名加括号代表函数执行；函数执行结果为return返回的内容，若没有return则返回值为undefined对象名存储的也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js中预解析及作用域相关问题">
+<meta property="og:url" content="https://jitingsun.github.io/2016/11/08/js中预解析及作用域相关问题/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="1.JS预解析当浏览器加载html页面的时候，会先提供一个供全局JS代码执行的环境，称为全局作用域(global/window)预解析仅发生在当前作用域中(刚开始时仅对window下的进行预解析，只有函数执行时才对函数的进行预解析)函数名存储的是一个内存地址，代表了函数本身，函数名加括号代表函数执行；函数执行结果为return返回的内容，若没有return则返回值为undefined对象名存储的也">
+<meta property="og:updated_time" content="2016-12-14T08:31:12.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js中预解析及作用域相关问题">
+<meta name="twitter:description" content="1.JS预解析当浏览器加载html页面的时候，会先提供一个供全局JS代码执行的环境，称为全局作用域(global/window)预解析仅发生在当前作用域中(刚开始时仅对window下的进行预解析，只有函数执行时才对函数的进行预解析)函数名存储的是一个内存地址，代表了函数本身，函数名加括号代表函数执行；函数执行结果为return返回的内容，若没有return则返回值为undefined对象名存储的也">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">菜单</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">菜单</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-JS预解析"><span class="toc-text">1.JS预解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-变量的预解析"><span class="toc-text">1.1 变量的预解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-函数的预解析"><span class="toc-text">1.2 函数的预解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-全局变量"><span class="toc-text">1.3 全局变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-作用域链"><span class="toc-text">2.作用域链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-私有作用域"><span class="toc-text">2.1 私有作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-查找上级作用域"><span class="toc-text">2.2 查找上级作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-内存释放和作用域销毁"><span class="toc-text">3.内存释放和作用域销毁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-堆内存"><span class="toc-text">3.1 堆内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-栈内存-作用域"><span class="toc-text">3.2 栈内存(作用域)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-this关键字"><span class="toc-text">4.this关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-window下的this"><span class="toc-text">4.1 window下的this</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-自执行函数this"><span class="toc-text">4.2 自执行函数this</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-指定元素this"><span class="toc-text">4.3 指定元素this</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-js中预解析及作用域相关问题" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">js中预解析及作用域相关问题</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.11.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>天逸风</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-js中预解析及作用域相关问题"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="1-JS预解析"><a href="#1-JS预解析" class="headerlink" title="1.JS预解析"></a>1.JS预解析</h2><p>当浏览器加载html页面的时候，会先提供一个供全局JS代码执行的环境，称为<code>全局作用域</code>(global/window)<br>预解析仅发生在当前作用域中(刚开始时仅对window下的进行预解析，只有函数执行时才对函数的进行预解析)<br>函数名存储的是一个内存地址，代表了函数本身，函数名加括号代表函数执行；函数执行结果为return返回的内容，若没有return则返回值为undefined<br>对象名存储的也是一个内存地址，当修改对象属性时先找到对应的空间，然后修改属性<br>在当前的作用域中，JS代码执行之前浏览器会默认把所有的var和function的进行提前的声明或定义  </p>
+<h3 id="1-1-变量的预解析"><a href="#1-1-变量的预解析" class="headerlink" title="1.1 变量的预解析"></a>1.1 变量的预解析</h3><p>变量在预解析时仅提前声明<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(num);  <span class="comment">//undefined</span></div><div class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</div><div class="line"><span class="built_in">console</span>.log(num);  <span class="comment">//12</span></div><div class="line"><span class="keyword">if</span>(<span class="literal">false</span>)&#123;</div><div class="line">  <span class="keyword">var</span> a = <span class="number">13</span>;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(a);  <span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
+<p>预解析时仅var num; 告诉浏览器在全局作用域中有一个num变量了，此时还未定义<br>不管if条件成立不成立，里面有var声明都进行预解析<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!(<span class="string">"num"</span> <span class="keyword">in</span> <span class="built_in">window</span>))&#123;</div><div class="line">  <span class="keyword">var</span> num = <span class="number">12</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//条件成立才会赋值</span></div><div class="line"><span class="built_in">console</span>.log(num);  <span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
+<h3 id="1-2-函数的预解析"><a href="#1-2-函数的预解析" class="headerlink" title="1.2 函数的预解析"></a>1.2 函数的预解析</h3><ol>
+<li>函数在预解析时提前声明和定义  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">showMsg();  <span class="comment">//这是第二个函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">showMsg</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  alert(<span class="string">"这是第一个函数"</span>);</div><div class="line">&#125;</div><div class="line">showMsg();  <span class="comment">//这是第二个函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">showMsg</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  alert(<span class="string">"这是第二个函数"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>函数执行时先创建自己的私有作用域，然后如果有形参，先给形参赋值，再进行私有作用域的预解析，再代码从上至下执行<br>私有变量：在私有作用域中声明的变量和<code>函数的形参</code>  </p>
+<ol>
+<li><p>var fn = function(){};在JS预解析时，在匿名函数表达式中只预解析等号(=)左边的，右边的作为值不参与预解析.即var fn;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fn();  <span class="comment">//报错 TypeError: fn is not a function //该项不为函数，不能执行</span></div><div class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"ok"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>自执行函数定义的function在全局作用域下是不进行预解析的，当代码执行到这个位置时，定义和执行一起完成   </p>
+</li>
+<li>函数体中return下面的代码虽然不再执行了，但是也会预解析;return后面跟着的都是返回值，所以不进行预解析  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(num);</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;  <span class="comment">//该function作为返回值不进行预解析</span></div><div class="line">  <span class="keyword">var</span> num = <span class="number">12</span>;  <span class="comment">//该num作为声明变量进行预解析</span></div><div class="line">&#125;</div><div class="line">fn();</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="1-3-全局变量"><a href="#1-3-全局变量" class="headerlink" title="1.3 全局变量"></a>1.3 全局变量</h3><p>带var的变量可以进行预解析，在赋值之前执行不会报错<br>不带var的变量是不能进行预解析的，在赋值之前执行会报错<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(num);  <span class="comment">//报错：num is not defined</span></div><div class="line">num = <span class="number">12</span>;</div><div class="line"><span class="string">``</span><span class="string">` </span></div><div class="line">`<span class="string">``</span>javascript</div><div class="line">num = <span class="number">12</span>;</div><div class="line"><span class="built_in">console</span>.log(num); <span class="comment">// 12  window.num</span></div><div class="line"><span class="string">``</span><span class="string">`  </span></div><div class="line">全局作用域中增加了一个全局变量num,相当于给window增加了一个num属性，值为12  </div><div class="line">注：JS中在不做任何特殊情况处理下，上面的代码报错，下面的代码都不再执行  </div><div class="line">在JS中，变量名和函数名重复了，是冲突情况;在预解析时如果名字已经声明过了不需要重新声明，但要重新赋值    </div><div class="line">`<span class="string">``</span>javascript</div><div class="line"><span class="keyword">var</span> fn = <span class="number">12</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;...&#125;</div><div class="line"><span class="comment">//这两个fn是一个名字，最终只能保留一个值，最终fn为变量</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">fn();</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">1</span>)&#125;</div><div class="line">fn();</div><div class="line"><span class="keyword">var</span> fn = <span class="number">12</span>;</div><div class="line">fn();</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">2</span>)&#125;</div><div class="line">fn();</div></pre></td></tr></table></figure>
+<h2 id="2-作用域链"><a href="#2-作用域链" class="headerlink" title="2.作用域链"></a>2.作用域链</h2><h3 id="2-1-私有作用域"><a href="#2-1-私有作用域" class="headerlink" title="2.1 私有作用域"></a>2.1 私有作用域</h3><p>在私有作用域中遇到的变量，若为私有变量则与外界变量没有任何关系，若不是私有变量，则在当前作用域上一级进行查找，直到找到window为止<br>私有作用域中出现的变量不是私有的，则往上级作用域中查找，若还没有则继续向上查找，直到window为止；若window下也没有则报错<br>私有作用域下保护了私有变量不受外界干扰，外界变量不能修改私有变量，同样私有变量也不能修改外界变量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(total);  <span class="comment">// undefined</span></div><div class="line"><span class="keyword">var</span> total = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">num1,num2</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(total);  <span class="comment">//undefined</span></div><div class="line">  <span class="keyword">var</span> total = num1+num2;</div><div class="line">  <span class="built_in">console</span>.log(total);  <span class="comment">//300</span></div><div class="line">&#125;</div><div class="line">fn(<span class="number">100</span>,<span class="number">200</span>);</div><div class="line"><span class="built_in">console</span>.log(total);  <span class="comment">//0</span></div></pre></td></tr></table></figure></p>
+<h3 id="2-2-查找上级作用域"><a href="#2-2-查找上级作用域" class="headerlink" title="2.2 查找上级作用域"></a>2.2 查找上级作用域</h3><ol>
+<li>如何查找当前作用域的上级作用域：看当前函数是在哪个作用域下定义的，那么它的上级作用域就是谁    </li>
+<li>和函数在哪里执行没关系，和函数在哪里定义有关系<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> num = <span class="number">100</span>;</div><div class="line">  <span class="keyword">return</span> funciton()&#123;</div><div class="line">    <span class="built_in">console</span>.log(num);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> f = fn();</div><div class="line">f();</div><div class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> num = <span class="number">1000</span>;</div><div class="line">  f();</div><div class="line">&#125;();</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>f()的值和执行环境无关，和定义环境有关</p>
+<h2 id="3-内存释放和作用域销毁"><a href="#3-内存释放和作用域销毁" class="headerlink" title="3.内存释放和作用域销毁"></a>3.内存释放和作用域销毁</h2><h3 id="3-1-堆内存"><a href="#3-1-堆内存" class="headerlink" title="3.1 堆内存"></a>3.1 堆内存</h3><p>存放引用数据类型值，比如对象的属性名和属性值，函数的字符串<br>对象数据类型或函数数据类型在定义时都会开辟一个堆内存，并且有一个引用地址；如果有变量引用这个地址，那就认为这段内存被占用，不能被销毁了<br>null为空对象指针<br>将变量值赋为null即可释放堆内存，浏览器在空闲的时候会把它销毁<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj1 = &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>&#125;;</div><div class="line"><span class="keyword">var</span> obj2 = obj1;</div><div class="line">obj1 = <span class="literal">null</span>;</div><div class="line">obj2 = <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="3-2-栈内存-作用域"><a href="#3-2-栈内存-作用域" class="headerlink" title="3.2 栈内存(作用域)"></a>3.2 栈内存(作用域)</h3><p>私有作用域，只有函数执行才会产生私有作用域(for,if,switch的大括号不是私有作用域)<br>全局作用域属于不销毁作用域，只有当页面关闭的时候才会销毁<br>一般情况下，函数执行完成后，私有作用域会主动进行释放和销毁<br>特殊情况下，当前私有作用域的部分内存被作用域以外的东西占用了，那么当前作用域就不能被销毁了  </p>
+<ol>
+<li><p>函数执行返回了一个引用数据类型的值，并且在函数的外面被一个其他东西接收了，不销毁   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> num = <span class="number">100</span>;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(num);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> f = fn();  <span class="comment">//返回值被f接收,fn不能被销毁</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>自执行函数形成的私有作用域在这种情况下也不销毁    </p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>);</div><div class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">oDiv.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line">&#125;();</div></pre></td></tr></table></figure>
+<p>oDiv为一个引用数据类型，引用click函数的一段内存；自执行函数形成的私有作用域，包含oDiv的点击事件，也引用同一段内存(在私有作用域中给DOM元素的事件绑定方法，这种情况下私有作用域不销毁)<br>注：通过DOM方法获取的元素、元素集合都是对象数据类型的值  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>);</div><div class="line"><span class="string">``</span><span class="string">`    </span></div><div class="line">  </div><div class="line">3. 不立即销毁：fn返回的函数没有被其他东西占用，但还需要`执行一次<span class="string">`，所以暂时不能销毁，当返回的值执行完后浏览器在空闲时间把它销毁</span></div><div class="line"></div><div class="line">`<span class="string">``</span>javascript</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> num = <span class="number">12</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  fn()(); <span class="comment">//表示执行函数fn，再执行返回值的函数</span></div></pre></td></tr></table></figure>
+<h2 id="4-this关键字"><a href="#4-this关键字" class="headerlink" title="4.this关键字"></a>4.this关键字</h2><p>this代表当前行为执行的主体；<br>context指当前执行的环境和区域；<br>this和context没有必然联系    </p>
+<h3 id="4-1-window下的this"><a href="#4-1-window下的this" class="headerlink" title="4.1 window下的this"></a>4.1 window下的this</h3><p>函数执行首先看函数名前有没有点，有的话前边是谁this就是谁，没有的话就是window<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">fn</span>:fn&#125;;</div><div class="line">fn();  <span class="comment">// 方法名前没有点</span></div><div class="line">obj.fn();  <span class="comment">//方法名前有点</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    fn();</div><div class="line">&#125;</div><div class="line">sum();  <span class="comment">//与执行环境无关</span></div><div class="line"><span class="keyword">var</span> aa = &#123;</div><div class="line">    <span class="attr">sum</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      fn();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">aa.sum();  <span class="comment">//this --&gt; window与执行环境无关</span></div></pre></td></tr></table></figure></p>
+<h3 id="4-2-自执行函数this"><a href="#4-2-自执行函数this" class="headerlink" title="4.2 自执行函数this"></a>4.2 自执行函数this</h3><p>自执行函数的this永远是window</p>
+<h3 id="4-3-指定元素this"><a href="#4-3-指定元素this" class="headerlink" title="4.3 指定元素this"></a>4.3 指定元素this</h3><p>给元素的某一事件绑定方法，当事件触发的时候，执行对应方法时当前this指该元素<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>).onlick = fn;  <span class="comment">//this ==&gt; #该方法</span></div><div class="line"><span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>).onlick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">//该方法的this指#div1</span></div><div class="line">    fn(); <span class="comment">//该方法的this依然是window</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-js中预解析及作用域相关问题" 
+      data-title="js中预解析及作用域相关问题" data-url="https://jitingsun.github.io/2016/11/08/js中预解析及作用域相关问题/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"sunjiting"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
